@@ -1,0 +1,15 @@
+.env
+.DS_Store
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+coverage
+*.tgz
+*.log
+*.lock
+*.swp
+*.swo
+*.swn
+node_modules
+*.local
