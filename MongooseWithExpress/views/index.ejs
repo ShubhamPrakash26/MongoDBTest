@@ -1,33 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini Whatsapp</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mini Whatsapp</title>
+  <link rel="stylesheet" href="/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 <body>
-    <h3>All Chats</h3>
+  <div class="header">
+    <h2><i class="fas fa-comments"></i> Mini Whatsapp</h2>
     <form action="/chats/new" method="GET">
-        <button type="submit">Write a message</button>
+      <button class="action-button"><i class="fas fa-plus"></i> New Message</button>
     </form>
-    <div class="chat-container">
-        <% for(chat of chats) { %>
-            <div class="chats">
-                <form action="/chats/<%= chat._id %>/edit" method="get">
-                    <button type="submit" class="edit">Edit</button>
-                </form>
-                <div class="from-to">
-                    <p>From: <%= chat.from %></p>
-                    <p>To: <%= chat.to %></p>
-                </div>
-                <div class="msg">
-                    <p>Message: <%= chat.message %></p>
-                </div>
-                <p class="timestamp">Time: <%= chat.timestamp.toString().split(" ")[4] %></p>
-                <p class="timestamp">Date: <%= chat.timestamp.toString().split(" ").slice(0,4).join(" ") %></p>
-            </div>
-        <% } %>
-    </div>
+  </div>
+
+  <div class="chat-container">
+    <% for(chat of chats) { %>
+      <div class="chat-card">
+        <div class="chat-header">
+          <div class="avatar"><i class="fas fa-user-circle fa-2x"></i></div>
+          <div>
+            <p><strong><%= chat.from %></strong> ➤ <strong><%= chat.to %></strong></p>
+            <p class="timestamp">
+              <i class="fas fa-clock"></i> <%= chat.timestamp.toLocaleTimeString() %> |
+              <i class="fas fa-calendar-alt"></i> <%= chat.timestamp.toDateString() %>
+            </p>
+          </div>
+        </div>
+
+        <div class="chat-message"><%= chat.message %></div>
+
+        <div class="chat-actions">
+          <form action="/chats/<%= chat._id %>/edit" method="GET">
+            <button class="edit"><i class="fas fa-edit"></i> Edit</button>
+          </form>
+          <form action="/chats/<%= chat._id %>?_method=DELETE" method="POST">
+            <button class="delete"><i class="fas fa-trash-alt"></i> Delete</button>
+          </form>
+        </div>
+      </div>
+    <% } %>
+  </div>
 </body>
 </html>
